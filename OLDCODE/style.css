@@ -1,0 +1,149 @@
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Prevent body scrolling */
+}
+
+#editor-pane {
+    background-color: #f8f9fa;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+#preview-pane {
+    background-color: #e9ecef;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#resume-container {
+    width: 8.5in;
+    min-height: 11in;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 0.75in;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Resume Output Styling */
+#resume-output {
+    color: #333;
+    line-height: 1.6;
+    /* CSS variables for easy JS manipulation */
+    font-family: var(--resume-font-family, 'Segoe UI', sans-serif);
+    font-size: var(--resume-font-size, 16px);
+}
+
+#resume-output .resume-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+#resume-output h1 {
+    color: var(--accent-color, #0d6efd);
+    font-weight: 700;
+}
+#resume-output .lead {
+    font-size: 1.2em;
+    color: #555;
+}
+#resume-output .contact-info {
+    font-size: 0.9em;
+    color: #666;
+}
+
+#resume-output .resume-section {
+    margin-bottom: 1.5rem;
+}
+
+#resume-output .section-title {
+    font-size: 1.25em;
+    font-weight: bold;
+    color: var(--accent-color, #0d6efd);
+    border-bottom: 2px solid var(--accent-color, #0d6efd);
+    padding-bottom: 0.25rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#resume-output .job-title, #resume-output .degree {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+#resume-output .company, #resume-output .institution {
+    font-style: italic;
+    color: #495057;
+}
+#resume-output .dates {
+    font-size: 0.9em;
+    color: #6c757d;
+    text-align: right;
+}
+
+#resume-output .skill-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+#resume-output .skill-badge {
+    background-color: var(--accent-color-light, #eef1f3);
+    color: var(--accent-color, #0d6efd);
+    padding: 0.3em 0.9em;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+/* Quill Editor Styling */
+.ql-toolbar {
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+}
+.ql-container {
+    border-bottom-left-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    min-height: 150px;
+    font-family: sans-serif; /* Use standard font in editor */
+}
+
+/* SortableJS Helper Class */
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: #c8ebfb;
+}
+.editor-section-card .card-header,
+.resume-section {
+    cursor: move; /* Grab cursor */
+}
+
+/* Print-specific styles */
+@media print {
+    body * { visibility: hidden; }
+    #editor-pane { display: none; }
+    #resume-container, #resume-container * { visibility: visible; }
+    #resume-container {
+        position: absolute;
+        left: 0; top: 0;
+        margin: 0; padding: 0.5in; border: none;
+        width: 8.5in; height: 11in;
+        box-shadow: none;
+        --resume-font-size: 12pt; /* Optimize for print */
+    }
+    /* Ensure colors and backgrounds print */
+    :root {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

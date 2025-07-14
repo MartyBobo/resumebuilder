@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Quill.js CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Controls / Form Column -->
+            <div class="col-lg-4 col-md-5" id="editor-pane">
+                <div class="p-4">
+                    <h3 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Resume Builder Pro</h3>
+                    
+                    <!-- Global Design Controls -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Global Design</h5>
+                            <div class="row g-3">
+                                <div class="col-6">
+                                    <label for="font-select" class="form-label">Font Family</label>
+                                    <select id="font-select" class="form-select">
+                                        <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">System Default</option>
+                                        <option value="'Garamond', serif">Garamond</option>
+                                        <option value="'Helvetica', sans-serif">Helvetica</option>
+                                        <option value="'Courier New', monospace">Courier New</option>
+                                        <option value="'Lato', sans-serif">Lato</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="color-picker" class="form-label">Accent Color</label>
+                                    <input type="color" id="color-picker" class="form-control form-control-color" value="#0d6efd">
+                                </div>
+                                <div class="col-12">
+                                    <label for="font-size-slider" class="form-label">Font Size: <span id="font-size-value">16</span>px</label>
+                                    <input type="range" class="form-range" id="font-size-slider" min="12" max="20" value="16">
+                                </div>
+                            </div>
+                            <button id="download-pdf" class="btn btn-primary w-100 mt-3"><i class="bi bi-cloud-download me-2"></i>Download as PDF</button>
+                        </div>
+                    </div>
+
+                    <!-- Personal Info (Stays at top) -->
+                     <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Personal Details</h5>
+                            <div class="mb-2">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="John Doe">
+                            </div>
+                            <div class="mb-2">
+                                <label for="job-title" class="form-label">Job Title</label>
+                                <input type="text" class="form-control" id="job-title" placeholder="Senior Web Developer">
+                            </div>
+                             <div class="mb-2">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="john.doe@example.com">
+                            </div>
+                            <div class="mb-2">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="(123) 456-7890">
+                            </div>
+                            <div class="mb-2">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" placeholder="San Francisco, CA">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic Sections Editor -->
+                    <h5 class="mt-4">Resume Sections</h5>
+                    <div id="section-editor-list">
+                        <!-- JS will populate this with sortable cards -->
+                    </div>
+                    
+                    <div class="dropdown mt-2">
+                      <button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-plus-circle me-2"></i>Add Section
+                      </button>
+                      <ul class="dropdown-menu w-100">
+                        <li><a class="dropdown-item add-section" href="#" data-type="summary">Professional Summary</a></li>
+                        <li><a class="dropdown-item add-section" href="#" data-type="experience">Work Experience</a></li>
+                        <li><a class="dropdown-item add-section" href="#" data-type="education">Education</a></li>
+                        <li><a class="dropdown-item add-section" href="#" data-type="skills">Skills</a></li>
+                        <li><a class="dropdown-item add-section" href="#" data-type="custom">Custom Text</a></li>
+                      </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Resume Preview Column -->
+            <div class="col-lg-8 col-md-7" id="preview-pane">
+                <div class="shadow-lg" id="resume-container">
+                    <div id="resume-output">
+                        <!-- Header -->
+                        <header class="resume-header text-center">
+                            <h1 id="resume-name" class="display-4">John Doe</h1>
+                            <p id="resume-job-title" class="lead">Senior Web Developer</p>
+                            <div class="contact-info">
+                                <span id="resume-email">john.doe@example.com</span> &bull; 
+                                <span id="resume-phone">(123) 456-7890</span> &bull; 
+                                <span id="resume-location">San Francisco, CA</span>
+                            </div>
+                        </header>
+                        
+                        <!-- Main Content (Sortable) -->
+                        <main id="resume-body-sortable">
+                            <!-- JS will populate this with resume sections -->
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.0/dist/quill.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+    <!-- App Script -->
+    <script src="script.js"></script>
+</body>
+</html>
